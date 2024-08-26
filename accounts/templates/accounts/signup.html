@@ -1,0 +1,10 @@
+<html lang="ja">
+  <body>
+    <form method="POST" action="{% url 'accounts:signup' %}">
+      {% csrf_token %} {{ form }}
+      <button type="submit">認証</button>
+    </form>
+    <a href="{% url 'accounts:login' %}">Login画面</a>
+    <a href="{% url 'accounts:signup-two-fa' %}">認証画面</a>
+  </body>
+</html>

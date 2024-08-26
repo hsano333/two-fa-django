@@ -1,0 +1,21 @@
+<html lang="ja">
+  <body>
+    <form
+      action="{% url 'accounts:login-two-fa' %}"
+      method="post"
+      id="two-fa-verify-form"
+    >
+      {% csrf_token %}
+      <div id="verify-code-block">
+        <input
+          type="text"
+          id="two-fa-verify-code"
+          name="code"
+          pattern="[0-9]{6}"
+          placeholder="認証コード"
+        />
+      </div>
+      <button type="submit">送信</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+<html lang="ja">
+  <body>
+    {% if user.is_authenticated %}
+    <form action="{% url 'accounts:logout' %}" method="post" name="logout">
+      {% csrf_token %}
+      <button type="submit">Log_out</button>
+    </form>
+    {% else %}
+    <form method="post" id="login-form" action="{% url 'accounts:login' %}">
+      {% csrf_token %} {{ form }}
+      <button type="submit">Log in</button>
+    </form>
+    {% endif %}
+    <a href="{% url 'accounts:signup' %}">Signup画面</a>
+  </body>
+</html>

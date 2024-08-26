@@ -1,0 +1,30 @@
+<html lang="ja">
+  <body>
+    <div id="google-qr-block">
+      <img
+        src="data:image/png;base64,{{ qr }}"
+        id="app_url_qr"
+        height="240"
+        width="240"
+      />
+    </div>
+
+    <form
+      action="{% url 'accounts:signup-two-fa' %}"
+      method="post"
+      id="two-fa-verify-form"
+    >
+      {% csrf_token %}
+      <div id="verify-code-block">
+        <input
+          type="text"
+          id="two-fa-verify-code"
+          name="code"
+          pattern="[0-9]{6}"
+          placeholder="認証コード"
+        />
+      </div>
+      <button type="submit">送信</button>
+    </form>
+  </body>
+</html>
