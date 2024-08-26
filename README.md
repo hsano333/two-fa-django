@@ -2,23 +2,24 @@
 <img src="https://img.shields.io/badge/-Python-3776AB.svg?logo=python&style=plastic">
 <img src="https://img.shields.io/badge/-Django-092E20.svg?logo=django&style=plastic">
 </p>
-# jwt_django
-Djangoの認証(login/logout)機能にJWT(Json Web Token)を組み込んだだけです。
-JWTの説明用の 
+# two-fa-django
+Djangoで2FA(TOTP)で実装しただけです。
 
 [document](https://qiita.com/hsano43/items/509544025882f852aa62)
 に対して、説明用のコードとして作成しました
 
 # Requirement
 * Python 3.12 以上
-* Django 5.0.4以上
-* ToJWT　2.9.0以上
+* Django 5.1.0以上
+* PyJWT　2.9.0以上
+* qrcode 7.4.2以上
+* pyotp  2.9.0以上
 
 # Installation
 Pythonがない環境なら事前にインストールしてください
-後はDjangoとPyJWTをインストールするだけです
+後は、上記のRequirementを順にインストールしてください
 ```bash
-pip install Django==5.0.6 pyjwt
+pip install Django==5.1.0 pyjwt qrcode pyotp
 ```
 
 myapp/setting.py内で定義されているJWT_SECRET_KEYとSECRET_KEYの入力だけしてください。
@@ -43,4 +44,6 @@ python manage.py runserver
 ```
 
 ```http://localhost:8000/accounts/signup/```にアクセスしてユーザー登録し、
-ログイン画面でログインすればセッションIDがJWTに変わっていることが確認できます。
+表示されるQRコードをGoogle Authenicatorで撮影し、表示されるコードを入力することでユーザー登録およびログインが完了します。
+
+
