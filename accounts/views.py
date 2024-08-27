@@ -125,6 +125,8 @@ class SignupTwoFAView(TemplateView):
                 return HttpResponseBadRequest()
 
             new_user = FtUser.objects.get(email=user.email)
+            if new_user is None:
+                return HttpResponseForbidden()
             login(
                 request,
                 new_user,

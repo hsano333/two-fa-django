@@ -26,9 +26,3 @@ class SignUpTmpForm(UserCreationForm):
             "first_name",
             "last_name",
         )
-
-
-class LoginForm(AuthenticationForm):
-
-    class Meta:
-        model = FtUser
