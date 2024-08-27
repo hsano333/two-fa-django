@@ -17,6 +17,7 @@ class CustomSessionMiddleware(SessionMiddleware):
         tmp_session_key = request.COOKIES.get(settings.SESSION_COOKIE_NAME)
         session_key = tmp_session_key
         is_provisional_login = False
+        is_provisional_signup = False
         jwt_decode = ""
         exp = ""
         user_id = "-1"
@@ -29,8 +30,10 @@ class CustomSessionMiddleware(SessionMiddleware):
                     algorithms=["HS256"],
                 )
                 session_key = jwt_decode["session_key"]
-                if "is_tmp" in jwt_decode:
-                    is_provisional_login = jwt_decode["is_tmp"]
+                if "is_login" in jwt_decode:
+                    is_provisional_login = jwt_decode["is_login"]
+                if "is_signup" in jwt_decode:
+                    is_provisional_signup = jwt_decode["is_signup"]
                 if "exp" in jwt_decode:
                     exp = jwt_decode["exp"]
                 if "sub" in jwt_decode:
@@ -43,6 +46,7 @@ class CustomSessionMiddleware(SessionMiddleware):
             pass
         request.session = self.SessionStore(session_key)
         request.session["is_provisional_login"] = is_provisional_login
+        request.session["is_provisional_signup"] = is_provisional_signup
         request.session["exp"] = exp
         request.session["user_id"] = user_id
 
@@ -94,12 +98,16 @@ class CustomSessionMiddleware(SessionMiddleware):
                     id = ""
                     email = ""
                     is_provisional_login = False
+                    is_provisional_signup = False
                     exp = datetime.now(tz=timezone.utc) + timedelta(seconds=14400)
                     if "is_provisional_login" in request.session:
                         is_provisional_login = request.session["is_provisional_login"]
-                        if (is_provisional_login is True) and (
-                            "exp" in request.session
-                        ):
+                    if "is_provisional_signup" in request.session:
+                        is_provisional_signup = request.session["is_provisional_signup"]
+                    if (is_provisional_login is True) or (
+                        is_provisional_signup is True
+                    ):
+                        if "exp" in request.session:
                             exp = datetime.fromtimestamp(float(request.session["exp"]))
                             id = request.session["user_id"]
                     jwt_session_key = jwt.encode(
@@ -108,7 +116,8 @@ class CustomSessionMiddleware(SessionMiddleware):
                             "iss": "http://localhost",
                             "sub": id,
                             "email": email,
-                            "is_tmp": is_provisional_login,
+                            "is_login": is_provisional_login,
+                            "is_signup": is_provisional_signup,
                             "exp": exp,
                             "iat": datetime.now(tz=timezone.utc),
                         },

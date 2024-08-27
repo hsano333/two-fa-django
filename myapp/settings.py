@@ -26,8 +26,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # 適当な文字列を入力
-JWT_SECRET_KEY = ""
-SECRET_KEY = ""
+JWT_SECRET_KEY = "3fEfjo30934fu89saerjvi@OPf)faweifawefawfjioE(FFFwf"
+SECRET_KEY = "3fEfjo30934fu89fFPQasV8320saerjvi@OPf)fafwjeiffawfjioE(FFFwf"
 
 
 # Application definition

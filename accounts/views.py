@@ -62,7 +62,7 @@ class FtSignupView(CreateView):
                 if user is None:
                     return HttpResponseServerError(f"Server Error:{e}")
 
-                self.request.session["is_provisional_login"] = True
+                self.request.session["is_provisional_signup"] = True
                 self.request.session["user_id"] = user.id
                 tmp_time = datetime.now(tz=timezone.utc) + timedelta(seconds=300)
                 self.request.session["exp"] = str(tmp_time.timestamp())  # 5minutes
@@ -94,10 +94,10 @@ class SignupTwoFAView(TemplateView):
         )
 
     def get(self, request):
-        is_provisional_login = False
-        if "is_provisional_login" in request.session:
-            is_provisional_login = request.session["is_provisional_login"]
-        if is_provisional_login is False:
+        is_provisional_signup = False
+        if "is_provisional_signup" in request.session:
+            is_provisional_signup = request.session["is_provisional_signup"]
+        if is_provisional_signup is False:
             return HttpResponseForbidden()
 
         id = request.session["user_id"]
@@ -107,10 +107,10 @@ class SignupTwoFAView(TemplateView):
         return render(self.request, "registration/signup-two-fa.html", data)
 
     def post(self, request):
-        is_provisional_login = False
-        if "is_provisional_login" in request.session:
-            is_provisional_login = request.session["is_provisional_login"]
-        if is_provisional_login is False:
+        is_provisional_signup = False
+        if "is_provisional_signup" in request.session:
+            is_provisional_signup = request.session["is_provisional_signup"]
+        if is_provisional_signup is False:
             return HttpResponseForbidden()
 
         try:
