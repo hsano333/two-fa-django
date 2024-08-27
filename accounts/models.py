@@ -44,11 +44,6 @@ class FtUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ["username"]
 
     objects = BaseUserManager()
-    created_at = models.DateTimeField(
-        verbose_name="ft_created_at",
-        null=True,
-        blank=False,
-    )
 
 
 class FtTmpUser(AbstractBaseUser, PermissionsMixin):
