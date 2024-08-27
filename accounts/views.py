@@ -132,7 +132,7 @@ class SignupTwoFAView(TemplateView):
                 new_user,
                 backend="django.contrib.auth.backends.ModelBackend",
             )
-            user.delete()
+            # user.delete()
 
             return render(self.request, "registration/login.html")
         except IntegrityError as e:
