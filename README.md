@@ -5,7 +5,7 @@
 # two-fa-django
 Djangoで2FA(TOTP)で実装しただけです。
 
-[document](https://qiita.com/hsano43/items/509544025882f852aa62)
+[document](https://qiita.com/hsano43/items/afc6dfcfae06ca8f112c)
 に対して、説明用のコードとして作成しました
 
 # Requirement
