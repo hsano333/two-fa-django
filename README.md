@@ -10,7 +10,7 @@ Djangoで2FA(TOTP)で実装しただけです。
 
 # Requirement
 * Python 3.12 以上
-* Django 5.1.0以上
+* Django 5.1.0 (5.1.1だとエラーになります）
 * PyJWT　2.9.0以上
 * qrcode 7.4.2以上
 * pyotp  2.9.0以上
